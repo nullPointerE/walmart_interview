@@ -21,13 +21,14 @@ class CountriesViewModel(
 
     fun fetchCountries(forceFetch: Boolean = false) {
         if (forceFetch || _countries.value.isNullOrEmpty())
+            // add loading signal
             viewModelScope.launch {
                 try {
                     val countryList = repository.fetchCountries()
                     _countries.value = countryList
                     savedStateHandle[COUNTRY_KEY] = countryList
                 } catch (e: Exception) {
-                    // Handle error
+                    // Handle error message
                     _countries.value = emptyList()
                 }
             }
