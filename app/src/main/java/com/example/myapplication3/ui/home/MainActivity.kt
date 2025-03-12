@@ -23,7 +23,7 @@ class MainActivity(private val viewModelFactory: CountriesViewModelFactory? = nu
                 .build()
                 .create(CountriesApiService::class.java)
             val repository = CountriesRepository(apiService)
-            CountriesViewModelFactory(repository, this)
+            CountriesViewModelFactory(repository)
         }
     }
 

@@ -1,27 +1,22 @@
 package com.example.myapplication3.ui.home.viewmodel
 
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.savedstate.SavedStateRegistryOwner
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication3.data.repository.CountriesRepository
 import org.jetbrains.annotations.VisibleForTesting
 
 class CountriesViewModelFactory(
     private val repository: CountriesRepository,
-    private val savedStateRegistryOwner: SavedStateRegistryOwner,
 ) :
-    AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
+    ViewModelProvider.Factory {
 
     @VisibleForTesting
     override fun <T : ViewModel> create(
-        key: String,
-        modelClass: Class<T>,
-        handle: SavedStateHandle
+        modelClass: Class<T>
     ): T {
         if (modelClass.isAssignableFrom(CountriesViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CountriesViewModel(repository, handle) as T
+            return CountriesViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
